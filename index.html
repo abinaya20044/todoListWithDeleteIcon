@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Todo List</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.15/dist/tailwind.min.css" rel="stylesheet">
+</head>
+<body>
+    <div class="max-w-md mx-auto mt-8">
+        <h1 class="text-2xl font-semibold mb-4">Todo List</h1>
+        <div>
+            <input id="todo-input" class="w-full rounded border p-2" type="text" placeholder="Enter a new item">
+            <button id="add-button" class="mt-2 px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600">Add Item</button>
+        </div>
+        <ul id="todo-list" class="space-y-2 mt-4">
+        </ul>
+    </div>
+
+    <script>
+        function removeItem(item) {
+            item.remove();
+        }
+        function addTodoItem(text) {
+            const todoList = document.getElementById("todo-list");
+
+            const listItem = document.createElement("li");
+            listItem.className = "flex justify-between items-center bg-gray-100 p-2 rounded";
+
+            const itemText = document.createElement("span");
+            itemText.textContent = text;
+
+            const deleteButton = document.createElement("button");
+            deleteButton.innerHTML = '<svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6 text-red-500 cursor-pointer" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/></svg>';
+
+            deleteButton.addEventListener("click", function () {
+                removeItem(listItem);
+            });
+
+            listItem.appendChild(itemText);
+            listItem.appendChild(deleteButton);
+            todoList.appendChild(listItem);
+        }
+        addTodoItem("mango")
+        addTodoItem("apple")
+        addTodoItem("orange")
+
+
+        const addButton = document.getElementById("add-button");
+        addButton.addEventListener("click", () => {
+            const inputElement = document.getElementById("todo-input");
+            const inputText = inputElement.value.trim();
+
+            if (inputText !== "") {
+                addTodoItem(inputText);
+                inputElement.value = "";
+            }
+        });
+    </script>
+</body>
+</html>
